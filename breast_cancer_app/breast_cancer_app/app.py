@@ -1,3 +1,4 @@
+import os
 import csv
 import io
 import json
@@ -21,8 +22,7 @@ APP_DIR = Path(__file__).parent
 MODELS_DIR = APP_DIR / "models"
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "curequest-dev-secret"  # move to an env var before real deployment
-
+app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "curequest-dev-secret")
 db.init_db()
 
 # ---------------------------------------------------------------- load once
