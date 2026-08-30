@@ -1,0 +1,134 @@
+{
+  "numerical": [
+    {
+      "name": "Age",
+      "min": 20.0,
+      "max": 84.0,
+      "default": 52.0,
+      "step": 1
+    },
+    {
+      "name": "BMI",
+      "min": 11.1,
+      "max": 44.1,
+      "default": 27.0,
+      "step": 0.1
+    },
+    {
+      "name": "Tumor_Size_cm",
+      "min": 0.0,
+      "max": 9.88,
+      "default": 2.51,
+      "step": 0.1
+    },
+    {
+      "name": "Blood_Pressure",
+      "min": 90.0,
+      "max": 180.0,
+      "default": 135.0,
+      "step": 1
+    },
+    {
+      "name": "Cholesterol",
+      "min": 130.0,
+      "max": 300.0,
+      "default": 213.0,
+      "step": 1
+    },
+    {
+      "name": "Exercise_Days_Per_Week",
+      "min": 0.0,
+      "max": 7.0,
+      "default": 4.0,
+      "step": 1
+    },
+    {
+      "name": "Annual_Income_USD",
+      "min": 15002.0,
+      "max": 149996.0,
+      "default": 81813.5,
+      "step": 1
+    }
+  ],
+  "categorical": [
+    {
+      "name": "Gender",
+      "options": [
+        "Female",
+        "Male"
+      ]
+    },
+    {
+      "name": "Family_History",
+      "options": [
+        "No",
+        "Yes"
+      ]
+    },
+    {
+      "name": "Smoking",
+      "options": [
+        "No",
+        "Yes"
+      ]
+    },
+    {
+      "name": "Alcohol_Consumption",
+      "options": [
+        "No",
+        "Yes"
+      ]
+    },
+    {
+      "name": "Physical_Activity",
+      "options": [
+        "High",
+        "Low",
+        "Moderate"
+      ]
+    },
+    {
+      "name": "Hormone_Therapy",
+      "options": [
+        "No",
+        "Yes"
+      ]
+    },
+    {
+      "name": "Menopause_Status",
+      "options": [
+        "Post",
+        "Pre"
+      ]
+    },
+    {
+      "name": "Genetic_Mutation",
+      "options": [
+        "Negative",
+        "Positive"
+      ]
+    },
+    {
+      "name": "Lymph_Node_Involvement",
+      "options": [
+        "No",
+        "Yes"
+      ]
+    },
+    {
+      "name": "Diabetes",
+      "options": [
+        "No",
+        "Yes"
+      ]
+    },
+    {
+      "name": "Breastfeeding_History",
+      "options": [
+        "No",
+        "Not Applicable",
+        "Yes"
+      ]
+    }
+  ]
+}

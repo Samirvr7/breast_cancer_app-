@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Patient Directory — CureQuest{% endblock %}
+
+{% block content %}
+<div class="hero">
+  <h1>Patient directory.</h1>
+  <p>Every patient account on CureQuest, most recently active first. Open a patient to see their full assessment history and download a report.</p>
+</div>
+
+{% if not patients %}
+<div class="card history-empty"><p>No patient accounts yet.</p></div>
+{% else %}
+<div class="patient-grid">
+  {% for p in patients %}
+  <a href="/doctor/patients/{{ p.id }}" class="card patient-card">
+    <div class="patient-card-top">
+      <div>
+        <div class="patient-card-name">{{ p.full_name }}</div>
+        <div class="patient-card-email">{{ p.email }}</div>
+      </div>
+      {% if p.latest_risk_tier %}
+      <span class="risk-pill {{ p.latest_risk_tier }}">{{ p.latest_risk_tier }}</span>
+      {% endif %}
+    </div>
+    <div class="patient-card-stats">
+      <span>{{ p.assessment_count }} assessment{{ 's' if p.assessment_count != 1 else '' }}</span>
+      {% if p.last_assessment_at %}
+      <span>Last: {{ p.last_assessment_at[:10] }}</span>
+      {% endif %}
+    </div>
+  </a>
+  {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

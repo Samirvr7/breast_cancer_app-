@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %}Sign up — CureQuest{% endblock %}
+
+{% block content %}
+<div class="auth-shell">
+  <div class="auth-brand-panel">
+    <div class="auth-pulse">
+      <svg viewBox="0 0 400 60" preserveAspectRatio="none">
+        <polyline points="0,30 80,30 96,30 106,6 118,54 128,30 150,30 175,30 195,30 206,12 216,48 226,30 250,30 400,30"/>
+      </svg>
+    </div>
+    <p class="auth-brand-name">CureQuest</p>
+    <h2 class="auth-brand-line">Built for two<br>kinds of trust.</h2>
+    <p class="auth-brand-sub">Patients get a private, explainable risk read-out. Doctors only see what a patient explicitly chooses to share — nothing more.</p>
+    <div class="auth-stat-row">
+      <div><span class="auth-stat-value">2</span><span class="auth-stat-label">Models compared live</span></div>
+      <div><span class="auth-stat-value">100%</span><span class="auth-stat-label">Consent-gated sharing</span></div>
+    </div>
+  </div>
+
+  <div class="auth-form-panel">
+    <h1 class="auth-title">Create your account</h1>
+    <p class="auth-sub">Choose how you'll use CureQuest.</p>
+
+    <form method="POST" class="auth-form">
+      <div class="field">
+        <label class="group-label">I am a</label>
+        <div class="segmented" id="role-segmented" style="width:100%;">
+          <button type="button" class="seg active" data-role="patient" style="flex:1;">Patient</button>
+          <button type="button" class="seg" data-role="doctor" style="flex:1;">Doctor</button>
+        </div>
+        <input type="hidden" name="role" id="role-input" value="patient">
+      </div>
+
+      <div class="field">
+        <label for="full_name">Full name</label>
+        <input type="text" id="full_name" name="full_name" required autofocus placeholder="Your name">
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required placeholder="you@example.com">
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required minlength="6" placeholder="••••••••">
+        <span class="field-hint">At least 6 characters.</span>
+      </div>
+      <button type="submit" class="btn-primary">Create account</button>
+    </form>
+
+    <p class="auth-switch">Already have an account? <a href="/login">Log in</a></p>
+  </div>
+</div>
+
+<script>
+  const roleButtons = document.querySelectorAll('#role-segmented .seg');
+  const roleInput = document.getElementById('role-input');
+  roleButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      roleButtons.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      roleInput.value = btn.dataset.role;
+    });
+  });
+</script>
+{% endblock %}

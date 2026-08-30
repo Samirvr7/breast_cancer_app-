@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}{{ code }} — CureQuest{% endblock %}
+
+{% block content %}
+<div class="card error-wrap">
+  <div class="error-code">{{ code }}</div>
+  <p>{{ message }}</p>
+  <p><a href="/">← Back home</a></p>
+</div>
+{% endblock %}

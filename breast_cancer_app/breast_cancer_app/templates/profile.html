@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %}Profile — CureQuest{% endblock %}
+
+{% block content %}
+<div class="profile-header">
+  <div class="profile-avatar">{{ user.full_name[0]|upper }}</div>
+  <div>
+    <p class="profile-name">{{ user.full_name }}</p>
+    <p class="profile-meta">{{ user.email }}</p>
+    <span class="role-pill">{{ user.role }}</span>
+  </div>
+  <a href="/logout" class="download-btn" style="margin-left:auto; background: transparent; color: var(--high); border: 1px solid var(--high);">Log out</a>
+</div>
+
+{% if user.role == 'doctor' %}
+<div class="card">
+  <p>You're signed in as a doctor. You can only see patients who've explicitly granted you access from their own Profile page — you won't see anyone else's data. Your dashboard is the <a href="/doctor/patients">Patient Directory</a>.</p>
+</div>
+{% else %}
+<div class="profile-grid">
+  <div class="card profile-stat">
+    <span class="stat-value">{{ recent|length }}</span>
+    <span class="stat-label">Recent Assessments</span>
+  </div>
+  <div class="card profile-stat">
+    <span class="stat-value">{{ recent[0].risk_tier if recent else '—' }}</span>
+    <span class="stat-label">Latest Risk Tier</span>
+  </div>
+  <div class="card profile-stat">
+    <span class="stat-value">{{ (recent[0].probability_malignant * 100)|round(1) if recent else '—' }}{{ '%' if recent }}</span>
+    <span class="stat-label">Latest Probability</span>
+  </div>
+</div>
+
+<div class="card" style="margin-bottom: 20px;">
+  <span class="group-label">Share access with a doctor</span>
+  <p class="share-hint">Enter your doctor's registered email. They'll only be able to see your reports after you do this — nothing is shared automatically.</p>
+  <form method="POST" action="/profile/share" class="share-form">
+    <input type="email" name="doctor_email" placeholder="doctor@example.com" required>
+    <button type="submit" class="share-btn">Grant access</button>
+  </form>
+
+  {% if shared_doctors %}
+  <div style="margin-top: 18px;">
+    <span class="group-label">Currently shared with</span>
+    {% for d in shared_doctors %}
+    <div class="shared-doctor-row">
+      <div class="doc-info">
+        <span>{{ d.full_name }}</span>
+        <span class="doc-email">{{ d.email }}</span>
+      </div>
+      <form method="POST" action="/profile/revoke/{{ d.id }}">
+        <button type="submit" class="revoke-btn">Revoke</button>
+      </form>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+</div>
+
+<div class="card">
+  <span class="group-label">Recent report history</span>
+  {% if not recent %}
+  <p class="no-assessments">No assessments yet. <a href="/">Run your first one</a>.</p>
+  {% else %}
+  <table class="history-table">
+    <thead><tr><th>When</th><th>Result</th><th>Risk</th><th>Probability</th></tr></thead>
+    <tbody>
+      {% for r in recent %}
+      <tr>
+        <td class="mono small">{{ r.created_at[:16].replace('T', ' ') }}</td>
+        <td><strong>{{ r.prediction }}</strong></td>
+        <td><span class="risk-pill {{ r.risk_tier }}">{{ r.risk_tier }}</span></td>
+        <td class="mono">{{ (r.probability_malignant * 100)|round(1) }}%</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <p style="margin-top:14px;"><a href="/history">View full history →</a> &nbsp;·&nbsp; <a href="/report/pdf">Download PDF report →</a></p>
+  {% endif %}
+</div>
+{% endif %}
+{% endblock %}

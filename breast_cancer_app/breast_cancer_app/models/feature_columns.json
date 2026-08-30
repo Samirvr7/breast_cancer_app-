@@ -1,0 +1,22 @@
+[
+  "Age",
+  "BMI",
+  "Tumor_Size_cm",
+  "Blood_Pressure",
+  "Cholesterol",
+  "Exercise_Days_Per_Week",
+  "Annual_Income_USD",
+  "Gender_Male",
+  "Family_History_Yes",
+  "Smoking_Yes",
+  "Alcohol_Consumption_Yes",
+  "Physical_Activity_Low",
+  "Physical_Activity_Moderate",
+  "Hormone_Therapy_Yes",
+  "Menopause_Status_Pre",
+  "Genetic_Mutation_Positive",
+  "Lymph_Node_Involvement_Yes",
+  "Diabetes_Yes",
+  "Breastfeeding_History_Not Applicable",
+  "Breastfeeding_History_Yes"
+]

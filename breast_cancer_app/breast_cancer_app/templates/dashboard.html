@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}Model Report — CureQuest{% endblock %}
+
+{% block content %}
+<div class="hero">
+  <h1>How the two models actually perform.</h1>
+  <p>Accuracy alone hides the number that matters here — recall on malignant cases. Both models below are tuned and evaluated with that priority.</p>
+</div>
+
+<section class="metric-grid">
+  {% for key, m in metrics.items() if key in ['logistic_regression', 'random_forest'] %}
+  <div class="card metric-card">
+    <h3>{{ m.name }}</h3>
+    <div class="metric-row">
+      <div class="metric"><span class="metric-value">{{ (m.accuracy*100)|round(1) }}%</span><span class="metric-label">Accuracy</span></div>
+      <div class="metric highlight"><span class="metric-value">{{ (m.recall*100)|round(1) }}%</span><span class="metric-label">Recall (Malignant)</span></div>
+      <div class="metric"><span class="metric-value">{{ (m.precision*100)|round(1) }}%</span><span class="metric-label">Precision</span></div>
+      <div class="metric"><span class="metric-value">{{ (m.f1*100)|round(1) }}%</span><span class="metric-label">F1</span></div>
+      <div class="metric"><span class="metric-value">{{ (m.roc_auc*100)|round(1) }}%</span><span class="metric-label">ROC-AUC</span></div>
+    </div>
+
+    <div class="confusion">
+      <span class="group-label">Confusion matrix</span>
+      <div class="cm-grid">
+        <div class="cm-cell cm-tn"><span class="cm-num">{{ m.confusion_matrix[0][0] }}</span><span class="cm-tag">True Benign</span></div>
+        <div class="cm-cell cm-fp"><span class="cm-num">{{ m.confusion_matrix[0][1] }}</span><span class="cm-tag">False Malignant</span></div>
+        <div class="cm-cell cm-fn"><span class="cm-num">{{ m.confusion_matrix[1][0] }}</span><span class="cm-tag">Missed Malignant</span></div>
+        <div class="cm-cell cm-tp"><span class="cm-num">{{ m.confusion_matrix[1][1] }}</span><span class="cm-tag">True Malignant</span></div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</section>
+
+<section class="chart-grid">
+  <div class="card">
+    <h3>ROC Curve</h3>
+    <canvas id="roc-chart" height="220"></canvas>
+  </div>
+  <div class="card">
+    <h3>Dataset balance</h3>
+    <canvas id="balance-chart" height="220"></canvas>
+    <p class="muted small">{{ metrics.n_samples }} patients · {{ metrics.n_features }} model features</p>
+  </div>
+</section>
+
+<section class="chart-grid">
+  <div class="card">
+    <h3>Random Forest — top biomarkers</h3>
+    <canvas id="rf-importance-chart" height="240"></canvas>
+  </div>
+  <div class="card">
+    <h3>Logistic Regression — top coefficients</h3>
+    <canvas id="lr-importance-chart" height="240"></canvas>
+  </div>
+</section>
+
+<script src="{{ url_for('static', filename='js/vendor/chart.umd.min.js') }}"></script>
+<script>
+  window.__METRICS__ = {{ metrics_json|safe }};
+  window.__IMPORTANCES__ = {{ importances_json|safe }};
+</script>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

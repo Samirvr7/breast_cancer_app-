@@ -1,0 +1,86 @@
+{
+  "logistic_regression": [
+    {
+      "feature": "Smoking_Yes",
+      "value": 0.966
+    },
+    {
+      "feature": "Family_History_Yes",
+      "value": 0.9296
+    },
+    {
+      "feature": "Age",
+      "value": 0.8988
+    },
+    {
+      "feature": "Lymph_Node_Involvement_Yes",
+      "value": 0.8855
+    },
+    {
+      "feature": "Tumor_Size_cm",
+      "value": 0.8514
+    },
+    {
+      "feature": "Genetic_Mutation_Positive",
+      "value": 0.8396
+    },
+    {
+      "feature": "BMI",
+      "value": 0.7809
+    },
+    {
+      "feature": "Alcohol_Consumption_Yes",
+      "value": 0.0625
+    },
+    {
+      "feature": "Diabetes_Yes",
+      "value": 0.0564
+    },
+    {
+      "feature": "Annual_Income_USD",
+      "value": 0.0557
+    }
+  ],
+  "random_forest": [
+    {
+      "feature": "Tumor_Size_cm",
+      "value": 0.1515
+    },
+    {
+      "feature": "Age",
+      "value": 0.1456
+    },
+    {
+      "feature": "BMI",
+      "value": 0.1455
+    },
+    {
+      "feature": "Smoking_Yes",
+      "value": 0.1437
+    },
+    {
+      "feature": "Family_History_Yes",
+      "value": 0.1159
+    },
+    {
+      "feature": "Lymph_Node_Involvement_Yes",
+      "value": 0.1126
+    },
+    {
+      "feature": "Genetic_Mutation_Positive",
+      "value": 0.0988
+    },
+    {
+      "feature": "Annual_Income_USD",
+      "value": 0.0196
+    },
+    {
+      "feature": "Cholesterol",
+      "value": 0.0187
+    },
+    {
+      "feature": "Blood_Pressure",
+      "value": 0.0172
+    }
+  ]
+}

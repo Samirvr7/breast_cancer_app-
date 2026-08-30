@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}CureQuest — Breast Cancer Risk Assessment{% endblock %}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<script>
+  (function () {
+    var saved = localStorage.getItem('cq-theme');
+    if (saved === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
+  })();
+</script>
+</head>
+<body>
+<div class="pulse-rail" aria-hidden="true">
+  <svg viewBox="0 0 600 40" preserveAspectRatio="none">
+    <polyline class="pulse-line" points="0,20 120,20 145,20 160,4 175,36 190,20 220,20 260,20 285,20 300,8 315,32 330,20 360,20 600,20"/>
+  </svg>
+</div>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <span class="brand-mark">CureQuest</span>
+    </div>
+    <nav class="nav">
+      {% if current_user %}
+        {% if current_user.role == 'doctor' %}
+          <a href="/doctor/patients" class="{{ 'active' if active=='patients' else '' }}">Patients</a>
+          <a href="/dashboard" class="{{ 'active' if active=='dashboard' else '' }}">Model Report</a>
+        {% else %}
+          <a href="/" class="{{ 'active' if active=='predict' else '' }}">Assess</a>
+          <a href="/dashboard" class="{{ 'active' if active=='dashboard' else '' }}">Model Report</a>
+          <a href="/history" class="{{ 'active' if active=='history' else '' }}">History</a>
+        {% endif %}
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <a href="/profile" class="profile-chip" title="Profile">
+          {{ current_user.full_name[0]|upper }}
+        </a>
+        <a href="/logout" class="nav-logout">Log out</a>
+      {% else %}
+        <a href="/login" class="{{ 'active' if active=='login' else '' }}">Log in</a>
+        <a href="/signup" class="{{ 'active' if active=='signup' else '' }}">Sign up</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      {% endif %}
+    </nav>
+  </div>
+</header>
+
+<main>
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="flash-banner">{% for msg in messages %}<p>{{ msg }}</p>{% endfor %}</div>
+    {% endif %}
+  {% endwith %}
+  {% block content %}{% endblock %}
+</main>
+
+<footer class="footer">
+  <span>CureQuest — decision-support tool only, not a substitute for clinical diagnosis.</span>
+</footer>
+
+<script>
+  document.getElementById('theme-toggle')?.addEventListener('click', function () {
+    var root = document.documentElement;
+    var isDark = root.getAttribute('data-theme') === 'dark';
+    if (isDark) { root.removeAttribute('data-theme'); localStorage.setItem('cq-theme', 'light'); }
+    else { root.setAttribute('data-theme', 'dark'); localStorage.setItem('cq-theme', 'dark'); }
+  });
+</script>
+</body>
+</html>

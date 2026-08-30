@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}{{ patient.full_name }} — CureQuest{% endblock %}
+
+{% block content %}
+<a href="/doctor/patients" class="back-link">← Back to patient directory</a>
+
+<div class="profile-header" style="justify-content: space-between; width: 100%;">
+  <div style="display:flex; align-items:center; gap:18px;">
+    <div class="profile-avatar">{{ patient.full_name[0]|upper }}</div>
+    <div>
+      <p class="profile-name">{{ patient.full_name }}</p>
+      <p class="profile-meta">{{ patient.email }}</p>
+    </div>
+  </div>
+  <a href="/doctor/patients/{{ patient.id }}/download/pdf" class="download-btn">⬇ Download PDF report</a>
+  <a href="/doctor/patients/{{ patient.id }}/download" class="download-btn" style="background: transparent; color: var(--teal); border: 1px solid var(--teal); margin-left: 8px;">⬇ CSV</a>
+</div>
+
+{% if not records %}
+<div class="card history-empty"><p>This patient hasn't run any assessments yet.</p></div>
+{% else %}
+<div class="card history-table-wrap">
+  <table class="history-table">
+    <thead>
+      <tr><th>When</th><th>Model</th><th>Age</th><th>Tumor Size (cm)</th><th>Result</th><th>Risk</th><th>Probability</th></tr>
+    </thead>
+    <tbody>
+      {% for r in records %}
+      <tr>
+        <td class="mono small">{{ r.created_at[:16].replace('T', ' ') }}</td>
+        <td>{{ r.model_used }}</td>
+        <td>{{ r.inputs.get('Age', '—') }}</td>
+        <td>{{ r.inputs.get('Tumor_Size_cm', '—') }}</td>
+        <td><strong>{{ r.prediction }}</strong></td>
+        <td><span class="risk-pill {{ r.risk_tier }}">{{ r.risk_tier }}</span></td>
+        <td class="mono">{{ (r.probability_malignant * 100)|round(1) }}%</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %}
+{% endblock %}

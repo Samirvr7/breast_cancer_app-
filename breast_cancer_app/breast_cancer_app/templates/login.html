@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Log in — CureQuest{% endblock %}
+
+{% block content %}
+<div class="auth-shell">
+  <div class="auth-brand-panel">
+    <div class="auth-pulse">
+      <svg viewBox="0 0 400 60" preserveAspectRatio="none">
+        <polyline points="0,30 80,30 96,30 106,6 118,54 128,30 150,30 175,30 195,30 206,12 216,48 226,30 250,30 400,30"/>
+      </svg>
+    </div>
+    <p class="auth-brand-name">CureQuest</p>
+    <h2 class="auth-brand-line">A second opinion,<br>in seconds.</h2>
+    <p class="auth-brand-sub">Classical ML decision-support for breast cancer risk — built to catch real cases, not just look accurate on paper.</p>
+    <div class="auth-stat-row">
+      <div><span class="auth-stat-value">93.5%</span><span class="auth-stat-label">Recall on malignant cases</span></div>
+      <div><span class="auth-stat-value">95.2%</span><span class="auth-stat-label">ROC-AUC</span></div>
+    </div>
+  </div>
+
+  <div class="auth-form-panel">
+    <h1 class="auth-title">Welcome back</h1>
+    <p class="auth-sub">Sign in to continue.</p>
+
+    <form method="POST" class="auth-form">
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required autofocus placeholder="you@example.com">
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required placeholder="••••••••">
+      </div>
+      <button type="submit" class="btn-primary">Log in</button>
+    </form>
+
+    <p class="auth-switch">No account yet? <a href="/signup">Sign up</a></p>
+  </div>
+</div>
+{% endblock %}
